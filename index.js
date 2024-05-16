@@ -1,14 +1,19 @@
-function connect(root) {
-  if (!root) return root;
-  let levelStart = root;
-  while (levelStart) {
-    let curr = levelStart;
-    while (curr) {
-      if (curr.left) curr.left.next = curr.right;
-      if (curr.right && curr.next) curr.right.next = curr.next.left;
-      curr = curr.next;
-    }
-    levelStart = levelStart.left;
+const quickSortRandomPivot = (arr) => {
+  if (arr.length <= 1) {
+    return arr;
   }
-  return root;
-}
+  const pivotIndex = Math.floor(Math.random() * arr.length);
+  const pivot = arr[pivotIndex];
+  const left = [];
+  const right = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (i !== pivotIndex) {
+      if (arr[i] <= pivot) {
+        left.push(arr[i]);
+      } else {
+        right.push(arr[i]);
+      }
+    }
+  }
+  return quickSortRandomPivot(left).concat(pivot, quickSortRandomPivot(right));
+};
